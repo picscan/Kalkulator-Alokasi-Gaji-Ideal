@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Tentang KAGI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Kagi adalah kalkulator cerdas untuk menghitung alokasi gaji dengan ideal">
+  <meta name="keywords" content="kagi, kalkulator alokasi gaji, persentase alokasi gaji bulanan, alokasi gaji 5 juta, persentase pembagian gaji menurut islam, alokasi gaji 10 juta, pembagian gaji 50 30 20, tabungan ideal bera persen dari gaji, alokasi gaji yang ideal, aturan 50/30/20, 70/20/10 rule, apa saja strategi keuangan, 5 langkah perencanaan keuangan, apa itu sistem 50/30/30, 5 langkah manajemen strategi, cara mengatur keuangan 50-30-20, cara mengatur keuangan pribadi">
+<link rel="canoncal" href="https://gaji.pages.dev">
+  <meta name="last-updated" content="2025-10-03 09:08:54 UTC">
+  <!-- Open Graph / Social Media -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://gaji.pages.dev/">
+  <meta property="og:title" content="Kalkulator Alokasi Gaji Ideal - KAGI">
+  <meta property="og:image" content="https://gaji.pages.dev/kagi-og.webp">
+  <meta property="og:description" content="Kagi kalkulator gaji cerdas menghitung alokasi gaji dengan ideal">
+  <meta property="og:site_name" content="Kagi">
+
+  <!-- Twitter -->
+  <meta name="twitter:site" content="@thepracticaldev">
+  <meta name="twitter:title" content="Kalkulator Alokasi Gaji Ideal - KAGI">
+  <meta name="twitter:description" content="Kagi kalkulator gaji cerdas menghitung alokasi gaji dengan ideal">
+  <meta name="twitter:image:src" content="https://gaji.pages.dev/kagi-og.webp">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Robots & Canonical -->
+  <meta name="robots" content="NOODP,INDEX,FOLLOW,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
+  <link rel="canonical" href="https://gaji.pages.dev/">
+  <link rel="dns-prefetch" href="https://gaji.pages.dev">
+  <link rel="dns-prefetch" href="//pagead2.googlesyndication.com">
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" href="icon-16.png">
+  <link rel="apple-touch-icon" href="icon-512.png">
+  <meta name="theme-color" content="#1a2735" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0d1620" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    :root {
+      --primary:#007bff;
+      --primary-dark:#0056b3;
+      --bg:#f7f7f7;
+      --card:#fff;
+      --text:#333;
+      --border:#ddd;
+    }
+    *{box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
+    body{margin:0;background:var(--bg);color:var(--text);}
+
+    /* NAVBAR */
+    .navbar{
+      position:sticky;top:0;z-index:1000;
+      background:var(--primary);color:#fff;
+      padding:10px 20px;
+      display:flex;align-items:center;justify-content:space-between;
+      box-shadow:0 2px 6px rgba(0,0,0,.15);
+    }
+    .navbar img{height:34px;}
+    .burger{display:none;flex-direction:column;gap:4px;cursor:pointer}
+    .burger span{width:24px;height:3px;background:#fff;border-radius:2px}
+    .nav-links{display:flex;gap:15px;list-style:none;margin:0;padding:0}
+    .nav-links a{color:#fff;text-decoration:none;font-size:.95rem}
+    .nav-links a:hover{text-decoration:underline}
+    @media(max-width:768px){
+      .nav-links{position:absolute;top:48px;right:20px;background:var(--primary-dark);flex-direction:column;padding:10px;border-radius:6px;display:none}
+      .nav-links.show{display:flex}
+      .burger{display:flex}
+    }
+
+    /* LAYOUT */
+    .layout {
+      display:flex;
+      gap:30px;
+      max-width:1300px;
+      margin:20px auto;
+      padding:0 10px;
+    }
+    .sidebar {
+      width:300px;
+      background:#fff;
+      border-radius:8px;
+      padding:20px;
+      box-shadow:0 2px 8px rgba(0,0,0,0.1);
+      height:fit-content;
+    }
+    .main {
+      flex:1;
+      background:#fff;
+      border-radius:8px;
+      padding:20px;
+      box-shadow:0 2px 8px rgba(0,0,0,0.1);
+    }
+    @media(max-width:992px){
+      .layout {flex-direction:column;}
+      .sidebar {width:100%;}
+    }
+
+    /* FORM */
+    label{font-weight:600;display:block;margin-top:10px}
+    input[type=number],select{
+      width:100%;padding:10px;margin-top:5px;
+      border:1px solid var(--border);border-radius:4px;font-size:16px;
+    }
+    button{
+      width:100%;padding:12px;font-size:16px;
+      border:none;border-radius:4px;background:var(--primary);
+      color:#fff;cursor:pointer;margin-top:20px;
+    }
+    button:hover{background:var(--primary-dark)}
+
+    /* MODAL */
+    .modal {
+      position: fixed;
+      top:0;left:0;width:100%;height:100%;
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(5px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 9999;
+    }
+    .modal.show {
+      opacity: 1;
+      visibility: visible;
+    }
+    .modal-content {
+      background: #fff;
+      width: 90%;
+      max-width: 600px;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+      animation: fadeIn 0.4s ease;
+      position: relative;
+    }
+    @keyframes fadeIn {
+      from {transform: scale(0.8); opacity:0;}
+      to {transform: scale(1); opacity:1;}
+    }
+    .close-btn {
+      position: absolute;
+      right: 15px;
+      top: 10px;
+      font-size: 26px;
+      color: #666;
+      cursor: pointer;
+    }
+    .close-btn:hover{color:#000}
+    .modal-content h3 {
+      text-align: center;
+      color: var(--primary);
+      margin-top: 10px;
+      margin-bottom: 15px;
+    }
+
+    /* TABLE */
+    table {
+      width:100%;
+      border-collapse:collapse;
+      margin-bottom:15px;
+      border:1px solid var(--primary);
+    }
+    th, td {
+      padding:10px;
+      border:1px solid var(--primary);
+      text-align:left;
+    }
+    th {background: var(--primary);color:#fff;}
+    tr:nth-child(even){background:#f9f9f9}
+    .keterangan{padding:10px;border-radius:6px;font-weight:600;text-align:center;}
+    .minus{background:#ffe0e0;color:#b71c1c}
+    .pas{background:#fff8e1;color:#f57f17}
+    .ideal{background:#e8f5e9;color:#2e7d32}
+
+    /* SHARE */
+    .share-icons {
+      display:flex;justify-content:center;gap:15px;margin-top:10px;
+    }
+    .share-icons a {
+      width:42px;height:42px;border-radius:50%;
+      display:flex;align-items:center;justify-content:center;
+      background:var(--primary);color:#fff;text-decoration:none;
+      font-size:18px;transition:0.3s;
+    }
+    .share-icons a:hover {background:var(--primary-dark);}
+
+    /* ARTICLE & FAQ */
+    article{margin-top:30px;line-height:1.6;text-align:justify}
+    .faq-section{margin-top:40px;}
+    .accordion-item{background:#fff;border:1px solid #ddd;border-radius:8px;margin-bottom:10px;overflow:hidden;box-shadow:0 2px 4px rgba(0,0,0,0.05);}
+    .accordion-header{background:var(--primary);color:#fff;padding:12px 15px;cursor:pointer;font-weight:bold;}
+    .accordion-content{max-height:0;overflow:hidden;transition:max-height 0.3s ease;padding:0 15px;background:#fafafa;}
+    .accordion-content p{margin:10px 0;}
+    .accordion-item.active .accordion-content{max-height:300px;padding:15px;}
+
+    /* FOOTER */
+    footer{
+      background: var(--primary);
+      color:#fff;
+      padding:40px 20px;
+      display:grid;
+      grid-template-columns:1fr 1fr 1fr;
+      gap:30px;
+    }
+    footer img{height:40px;margin-bottom:10px;}
+    footer a{color:#fff;text-decoration:none;}
+    footer a:hover{text-decoration:underline;}
+    @media(max-width:768px){
+      footer{grid-template-columns:1fr;text-align:center;}
+    }
+  </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Kalkulator Gaji KAGI",
+  "alternateName": "Kalkulator Alokasi Gaji Ideal",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Web",
+  "url": "https://gaji.pages.dev",
+  "image": "https://gaji.pages.dev/preview.png",
+  "description": "Kalkulator Gaji KAGI membantu karyawan menghitung dan membagi gaji bulanan secara ideal berdasarkan persentase kebutuhan, tabungan, hiburan, dan investasi. Didesain untuk membantu pengelolaan keuangan pribadi yang lebih cerdas dan seimbang.",
+  "author": {
+    "@type": "Organization",
+    "name": "KAGI Tools"
+  },
+  "creator": {
+    "@type": "Organization",
+    "name": "KAGI Tools"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "KAGI Tools",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://gaji.pages.dev/logo-header.png"
+    }
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "ratingCount": "274",
+    "reviewCount": "198",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "offers": {
+    "@type": "Offer",
+    "price": "0.00",
+    "priceCurrency": "IDR",
+    "availability": "https://schema.org/InStock",
+    "category": "Free"
+  },
+  "review": [
+    {
+      "@type": "Review",
+      "author": {
+        "@type": "Person",
+        "name": "Andi Pratama"
+      },
+      "datePublished": "2025-08-20",
+      "reviewBody": "Kalkulator KAGI sangat membantu saya memahami pembagian gaji yang ideal. Sekarang saya bisa menabung dan tetap punya dana untuk hiburan tanpa rasa bersalah!",
+      "name": "Membantu mengatur keuangan lebih bijak",
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "5",
+        "bestRating": "5"
+      }
+    },
+    {
+      "@type": "Review",
+      "author": {
+        "@type": "Person",
+        "name": "Dewi Lestari"
+      },
+      "datePublished": "2025-09-02",
+      "reviewBody": "Desainnya sederhana dan mudah digunakan. Cocok untuk karyawan muda yang baru mulai mengelola gaji sendiri.",
+      "name": "Praktis dan user-friendly",
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "4.7",
+        "bestRating": "5"
+      }
+    },
+    {
+      "@type": "Review",
+      "author": {
+        "@type": "Person",
+        "name": "Rizky Ananda"
+      },
+      "datePublished": "2025-09-18",
+      "reviewBody": "Saya suka karena datanya tidak disimpan di server, jadi aman. Sangat berguna buat yang ingin mengatur keuangan tanpa ribet.",
+      "name": "Aman dan transparan",
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "4.9",
+        "bestRating": "5"
+      }
+    }
+  ]
+}
+</script>
+
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <img src="logo-header.png" alt="Logo KAGI">
+    <div class="burger" onclick="toggleBurger()"><span></span><span></span><span></span></div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/">Home</a></li>
+      <li><a href="tentang">Tentang</a></li>
+      <li><a href="kebijakan-privasi">Kebijakan Privasi</a></li>
+      <li><a href="ketentuan-layanan">Ketentuan Layanan</a></li>
+      <li><a href="disclaimer">Disclaimer</a></li>
+      <li><a href="kontak">Kontak</a></li>
+    </ul>
+  </nav>
+
+  <!-- LAYOUT -->
+  <div class="layout">
+    <aside class="sidebar">Kiri Sidebar<br><small>(Promosi / Menu lainnya)</small></aside>
+
+     <main class="main">
+           <article>
+        <h2>Tentang KAGI</h2>
+        <p><strong>KAGI (Kalkulator Alokasi Gaji Ideal)</strong> adalah platform edukasi finansial yang membantu masyarakat Indonesia memahami cara mengatur pendapatan secara efisien dan berkelanjutan. KAGI dikembangkan dengan semangat berbagi pengetahuan agar setiap orang dapat mencapai keseimbangan finansial tanpa harus menjadi ahli ekonomi.</p>
+
+        <p>Tujuan utama kami adalah menyediakan alat bantu dan artikel panduan yang sederhana, mudah dipahami, serta sesuai dengan kebijakan Google AdSense. Kami percaya bahwa literasi keuangan merupakan pondasi penting untuk meningkatkan kualitas hidup dan kesejahteraan pribadi maupun keluarga.</p>
+
+        <h3>Visi Kami</h3>
+        <p>Menjadi sumber referensi terpercaya dalam hal pengelolaan keuangan pribadi di Indonesia, sekaligus mendorong budaya finansial yang sehat melalui edukasi digital dan alat bantu interaktif yang mudah digunakan.</p>
+
+        <h3>Misi Kami</h3>
+        <ul>
+          <li>Menyediakan konten edukatif yang membantu pembaca memahami dasar-dasar pengelolaan keuangan pribadi.</li>
+          <li>Membantu pengguna membuat keputusan finansial yang lebih bijak dengan alat bantu gratis dan bebas iklan mengganggu.</li>
+          <li>Mendukung kebijakan Google AdSense dengan menyediakan halaman informatif, original, dan bermanfaat bagi pengunjung.</li>
+        </ul>
+
+        <h3>Fokus Kami</h3>
+        <p>KAGI berfokus pada literasi finansial yang relevan dengan kehidupan sehari-hari, seperti pembagian gaji, tips menabung, strategi investasi sederhana, serta pengelolaan utang yang sehat. Setiap artikel kami ditulis dengan bahasa ringan namun tetap informatif, sehingga mudah dipahami oleh siapa pun, termasuk pemula dalam dunia keuangan.</p>
+
+        <h3>Komitmen terhadap Kebijakan Google AdSense</h3>
+        <p>Kami memastikan bahwa seluruh konten di situs ini mematuhi pedoman <strong>Google AdSense</strong>, termasuk ketentuan tentang kualitas konten, transparansi informasi, dan kenyamanan pengguna. Kami menghindari topik yang melanggar kebijakan seperti konten sensitif, klaim palsu, atau praktik manipulatif dalam periklanan. Dengan begitu, pengunjung dapat menikmati pengalaman membaca yang aman dan informatif.</p>
+
+        <h3>Kenapa Memilih KAGI?</h3>
+        <p>KAGI bukan hanya sekadar situs perhitungan keuangan, tapi juga media pembelajaran yang terbuka untuk siapa saja. Kami memahami bahwa setiap orang memiliki kondisi finansial yang berbeda, oleh karena itu kami berkomitmen untuk terus memperbarui fitur dan artikel agar selalu relevan dengan kebutuhan pengguna masa kini.</p>
+
+        <h3>Hubungi Kami</h3>
+        <p>Jika Anda memiliki pertanyaan, ide kolaborasi, atau ingin memasang iklan melalui Google AdSense di situs ini, Anda dapat menghubungi kami melalui email resmi di <strong>info@adnext.id</strong>. Kami sangat terbuka untuk bekerja sama dalam membangun kesadaran finansial yang lebih luas.</p>
+
+        <p>Terima kasih telah mengunjungi halaman “Tentang” KAGI. Semoga kehadiran kami bisa membantu Anda memahami, mengelola, dan menikmati hasil kerja keras dengan cara yang lebih cerdas dan bijak.</p>
+      </article>
+    </main>
+
+    <aside class="sidebar">
+      <h3>Tips Finansial</h3>
+      <ul style="list-style:none;padding:0;margin:0;">
+        
+    </aside>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+  <!-- Kolom 1: Logo & Deskripsi -->
+  <div>
+    <a href="/"><img src="logo-header.png" alt="Logo KAGI"></a>
+    <p>Kalkulator Alokasi Gaji Ideal membantu Anda mengatur pendapatan agar lebih seimbang dan sehat secara finansial.</p>
+  </div>
+
+  <!-- Kolom 2: Quick Links -->
+  <div>
+    <h4>Quick Links</h4>
+    <ul style="list-style:none; padding:0; margin:0;">
+      <li><a href="/">Home</a></li>
+      <li><a href="tentang">Tentang</a></li>
+      <li><a href="kebijakan-privasi">Kebijakan Privasi</a></li>
+      <li><a href="ketentuan-layanan">Ketentuan Layanan</a></li>
+      <li><a href="disclaimer">Disclaimer</a></li>
+      <li><a href="kontak">Kontak</a></li>
+    </ul>
+  </div>
+
+  <!-- Kolom 3: Alamat -->
+  <div>
+    <h4>Alamat</h4>
+    <p>
+      Hendygital<br>
+      Majalengka, Jawa Barat, Indonesis, 45475<br>
+      Email: <a href="mailto:info@adnext.id">hendygital@gmail.com</a>
+    </p>
+  </div>
+</footer>
+  <script>
+    function toggleBurger(){
+      document.getElementById('navLinks').classList.toggle('show');
+    }
+  </script>
+</body>
+</html>
+

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Blog Keuangan UMR | Tips Hemat & Anggaran Bulanan</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Blog keuangan khusus karyawan UMR. Tips hemat, anggaran 50/30/20, dan trik kelola gaji kecil agar cukup sebulan.">
+  <style>
+    :root{--primary:#007bff;--primary-dark:#0056b3;--bg:#f7f7f7;--card:#fff;--text:#333;--border:#ddd;--sidebar:#eef}
+    *{box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
+    body{margin:0;background:var(--bg);color:var(--text)}
+    /* Navbar */
+    .navbar{position:sticky;top:0;z-index:1000;background:var(--primary);color:#fff;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 6px rgba(0,0,0,.15)}
+    .navbar h1{font-size:1.25rem;margin:0}
+    .nav-links{display:flex;gap:15px;list-style:none;margin:0;padding:0}
+    .nav-links a{color:#fff;text-decoration:none;font-size:.95rem}
+    .burger{display:none;flex-direction:column;gap:4px;cursor:pointer}
+    .burger span{width:24px;height:3px;background:#fff;border-radius:2px}
+    /* Wrapper Blog */
+    .wrapper{display:flex;max-width:1200px;margin:auto;gap:20px;padding:20px}
+    .main{flex:1;min-width:0}
+    .sidebar{width:280px;position:sticky;top:80px;height:fit-content;background:var(--sidebar);border-radius:8px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,.1)}
+    .card{background:var(--card);padding:25px;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,.1);margin-bottom:20px}
+    .blog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px}
+    .blog-card{display:flex;flex-direction:column;border:1px solid var(--border);border-radius:8px;overflow:hidden;transition:transform .2s}
+    .blog-card:hover{transform:translateY(-4px)}
+    .blog-card img{width:100%;height:150px;object-fit:cover}
+    .blog-content{padding:15px;flex:1;display:flex;flex-direction:column}
+    .blog-content h3{margin:0 0 8px;font-size:1.1rem;color:var(--primary)}
+    .blog-content p{font-size:.9rem;margin:0 0 10px;flex:1}
+    .read-more{align-self:flex-start;background:var(--primary);color:#fff;padding:6px 14px;border-radius:4px;font-size:.8rem;text-decoration:none}
+    .read-more:hover{background:var(--primary-dark)}
+    /* Load more */
+    #loadMore{width:100%;padding:12px;font-size:1rem;border:none;border-radius:4px;background:var(--primary);color:#fff;cursor:pointer;margin-top:10px}
+    #loadMore:hover{background:var(--primary-dark)}
+    #loadMore:disabled{background:#aaa;cursor:not-allowed}
+    /* Sidebar */
+    .widget-title{margin-top:0;font-size:1.1rem;color:var(--primary)}
+    .tag-cloud{display:flex;flex-wrap:wrap;gap:6px}
+    .tag{background:var(--primary);color:#fff;padding:4px 10px;border-radius:4px;font-size:.75rem;text-decoration:none}
+    .tag:hover{background:var(--primary-dark)}
+    @media(max-width:768px){
+      .nav-links{position:absolute;top:48px;right:20px;background:var(--primary-dark);flex-direction:column;padding:10px;border-radius:6px;display:none}
+      .nav-links.show{display:flex}
+      .burger{display:flex}
+      .wrapper{flex-direction:column}
+      .sidebar{width:100%;position:static}
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <h1>Blog Keuangan UMR</h1>
+  <div class="burger" onclick="toggleBurger()"><span></span><span></span><span></span></div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="./index.html">Beranda</a></li>
+    <li><a href="./privacy-policy.html">Privasi</a></li>
+    <li><a href="./terms-of-service.html">Ketentuan</a></li>
+    <li><a href="./kontak.html">Kontak</a></li>
+  </ul>
+</nav>
+
+<div class="wrapper">
+  <!-- AREA BLOG -->
+  <main class="main">
+    <section class="card">
+      <h2>Artikel Terbaru</h2>
+      <div class="blog-grid" id="blogGrid"></div>
+      <button id="loadMore" onclick="loadMore()">Load More</button>
+    </section>
+  </main>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="card">
+      <h3 class="widget-title">Tag Populer</h3>
+      <div class="tag-cloud">
+        <a class="tag" href="./tag/50-30-20">50/30/20</a>
+        <a class="tag" href="./tag/menabung">menabung</a>
+        <a class="tag" href="./tag/dana-darurat">dana-darurat</a>
+        <a class="tag" href="./tag/cicilan">cicilan</a>
+        <a class="tag" href="./tag/side-hustle">side-hustle</a>
+        <a class="tag" href="./tag/investasi">investasi</a>
+        <a class="tag" href="./tag/umr">umr</a>
+        <a class="tag" href="./tag/tips-hemat">tips-hemat</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 class="widget-title">Tentang Blog</h3>
+      <p style="font-size:.85rem;margin:0">
+        Blog ini khusus membantu karyawan berpenghasilan UMR mengelola gaji agar cukup sebulan, bisa menabung, dan bebas utang.
+        Semua artikel ditulis tim independen; data perhitungan tidak disimpan di server.
+      </p>
+    </div>
+  </aside>
+</div>
+
+<script>
+  // ===== DATA ARTIKEL (30 buah) =====
+  const articles = [
+    {title:"Panduan Lengkap Metode 50/30/20 untuk Gaji UMR",desc:"Pelajari cara membagi gaji jadi 3 bagian: kebutuhan, keinginan, tabungan. Praktis & langsung bisa dicoba hari ini.",img:"https://source.unsplash.com/600x400/?money,budget",link:"./artikel-50-30-20.html"},
+    {title:"5 Cara Menabung 300 Ribu/Bulan dari Gaji 4 Juta",desc:"Tanpa merasa terbebani! Terbukti oleh karyawan pabrik ini selama 8 bulan berturut-turut.",img:"https://source.unsplash.com/600x400/?savings,piggybank",link:"./artikel-menabung-300k.html"},
+    {title:"Strategi Keluar dari Jeratan Cicilan Konsumtif",desc:"Langkah konkret menghilangkan utang kartu kredit & paylater dengan skala prioritas cepat.",img:"https://source.unsplash.com/600x400/?debt,credit",link:"./artikel-hilang-cicilan.html"},
+    {title:"Usaha Sampingan yang Cocok untuk Karyawan UMR",desc:"Dapat dikerjakan sepulang kerja, modal minim, dan legal. Berikut daftar serta estimasi pendapatannya.",img:"https://source.unsplash.com/600x400/?side-hustle,freelance",link:"./artikel-side-hustle.html"},
+    {title:"Panduan Dana Darurat 3× Pengeluaran: Kenapa Cukup?",desc:"Hitungan realistis & tempat menyimpannya agar tetap likuid tapi tidak gampang tergoda.",img:"https://source.unsplash.com/600x400/?emergency,fund",link:"./artikel-dana-darurat-3x.html"},
+    {title:"Investasi Rp50 Ribu/Hari untuk Karyawan Gaji Pas-Pasan",desc:"Simulasi 5 tahun, risiko rendah, serta aplikasi yang sudah OJK-registrasi.",img:"https://source.unsplash.com/600x400/?investment,chart",link:"./artikel-invest-50k.html"},
+    {title:"Biaya Hidup Jakarta 2024 untuk Gaji UMR",desc:"Update harga sewa, makan, transport & hiburan. Cocok sebagai patokan anggaran bulanan.",img:"https://source.unsplash.com/600x400/?jakarta,city",link:"./artikel-biaya-jakarta-2024.html"},
+    {title:"Cicilan 0%: Manfaat atau Jerat?",desc:"Pelajari mekanisme promo 0% & skenario ketika bunga tiba-tiba muncul.",img:"https://source.unsplash.com/600x400/?0-percent,finance",link:"./artikel-cicilan-0-persen.html"},
+    {title:"Tips Hemat Listrik untuk Kos-kosan",desc:"Penggunaan AC, kipas, dan lampu yang tepat bisa potong tagihan hingga 25%.",img:"https://source.unsplash.com/600x400/?electricity,saving",link:"./artikel-hemat-listrik.html"},
+    {title:"Daftar Aplikasi Keuangan Gratis & OJK Registrasi",desc:"Tinjauan fitur, kelebihan & kekurangan 10 aplikasi budgeting populer di Indonesia.",img:"https://source.unsplash.com/600x400/?mobile-app,finance",link:"./artikel-aplikasi-ojk.html"},
+    {title:"Mengenal Paylater: Pro & Kontra",desc:"Cara kerja, bunga efektif, serta tips memilih platform paylater yang aman.",img:"https://source.unsplash.com/600x400/?paylater,loan",link:"./artikel-paylater.html"},
+    {title:"Makan Sehat dengan Budget Rp25 Ribu/Hari",desc:"Menu mingguan lengkap dengan resep & daftar belanja untuk karyawan UMR.",img:"https://source.unsplash.com/600x400/?healthy-food,budget",link:"./artikel-makan-sehat-25k.html"},
+    {title:"Kisah Sukses: Keluar dari Utang Rp50 Juta dalam 2 Tahun",desc:"Langkah konkret yang dilakukan seorang karyawan pabrik plus timeline-nya.",img:"https://source.unsplash.com/600x400/?success,debt-free",link:"./artikel-kisah-utang-50juta.html"},
+    {title:"Asuransi untuk Karyawan UMR: Mana yang Perlu?",desc:"Urutkan prioritas asuransi berdasarkan risiko & budget. Termasuk simulasi premi.",img:"https://source.unsplash.com/600x400/?insurance,protection",link:"./artikel-asuransi-umr.html"},
+    {title:"Cara Membuat Dana Darurat di Rekening Terpisah",desc:"Panduan buka rekening tabungan tanpa kartu debit plus fitur auto-debit.",img:"https://source.unsplash.com/600x400/?bank-account,savings",link:"./artikel-rekening-terpisah.html"},
+    {title:"Perbandingan Biaya Hidup 10 Kota Besar untuk UMR 2024",desc:"Tabel lengkap biaya sewa, makan, transport & hiburan. Cocok untuk rencana relocation.",img:"https://source.unsplash.com/600x400/?city,comparison",link:"./artikel-biaya-10kota-2024.html"},
+    {title:"Strategi THR: Habiskan atau Investasikan?",desc:"Simulasi 3 skema: full enjoy, 50% invest, 100% invest. Mana yang paling menguntungkan?",img:"https://source.unsplash.com/600x400/?thr,money",link:"./artikel-strategi-thr.html"},
+    {title:"Tips Transportasi Hemat untuk Komuter",desc:"Perbandingan biaya ojol, TransJakarta, KRL, & motor pribadi plus trik diskonnya.",img:"https://source.unsplash.com/600x400/?commute,public-transport",link:"./artikel-transport-hemat.html"},
+    {title:"Cara Menghindari Gaya Hidup Hemat yang Menyiksa",desc:"Tetap nongkrong & nonton bioskop? Boleh! Asal pakai teknik 'budget block' ini.",img:"https://source.unsplash.com/600x400/?lifestyle,budget",link:"./artikel-hemat-tidak-menyiksa.html"},
+    {title:"Investasi Emas Digital: Antam vs PEGADAIAN",desc:"Biaya admin, spread, keamanan, serta cara jual-beli kembali. Mana yang lebih murah?",img:"https://source.unsplash.com/600x400/?gold,investment",link:"./artikel-emas-digital.html"},
+    {title:"Tips Belanja Bulanan di Pasar Tradisional Agar Tidak Boros",data:"Patokan harga, waktu belanja, & teknik menawar yang ramah dompet.",img:"https://source.unsplash.com/600x400/?traditional-market,shopping",link:"./artikel-belanja-pasar.html"},
+    {title:"Mengelola Keuangan saat Naik Jabatan & Gaji",desc:"Cara menyesuaikan anggaran agar tidak terjebak 'lifestyle inflation'.",img:"https://source.unsplash.com/600x400/?promotion,salary",link:"./artikel-naik-jabatan.html"},
+    {title:"Cara Membuat Laporan Keuangan Bulanan Sederhana",desc:"Template plus contoh pengisian laporan keuangan ala karyawan UMR.",img:"https://source.unsplash.com/600x400/?report,finance",link:"./artikel-laporan-keuangan.html"},
+    {title:"Tips Menyiasati Inflasi 2024 untuk Gaji Tetap",desc:"Proyeksi inflasi & skenario pengalokasian ulang anggaran bulan ini.",img:"https://source.unsplash.com/600x400/?inflation,2024",link:"./artikel-inflasi-2024.html"},
+    {title:"Weton vs Weekend: Tips Hemat Liburan untuk UMR",desc:"Ide liburan murah meriah yang tetap Instagram-able tanpa utang.",img:"https://source.unsplash.com/600x400/?vacation,budget",link:"./artikel-liburan-murah.html"},
+    {title:"Cara Hitung Biaya Kuliah Anak untuk Orang Tua UMR",desc:"Simulasi biaya pendidikan 10 tahun ke depan serta strategi menabungnya.",img:"https://source.unsplash.com/600x400/?education,cost",link:"./artikel-biaya-kuliah-anak.html"}
+  ];
+
+  let currentIndex = 0;
+  const perLoad = 6;
+  const maxArtikel = 30;
+
+  function renderArtikel(start,end){
+    const grid = document.getElementById('blogGrid');
+    for(let i=start;i<end;i++){
+      if(i>=maxArtikel) break;
+      const a = articles[i];
+      grid.insertAdjacentHTML('beforeend',`
+        <article class="blog-card">
+          <img src="${a.img}" alt="${a.title}">
+          <div class="blog-content">
+            <h3>${a.title}</h3>
+            <p>${a.desc}</p>
+            <a class="read-more" href="${a.link}">Baca Selengkapnya</a>
+          </div>
+        </article>
+      `);
+    }
+    currentIndex = end;
+  }
+
+  function loadMore(){
+    renderArtikel(currentIndex, currentIndex + perLoad);
+    if(currentIndex >= maxArtikel){
+      document.getElementById('loadMore').disabled = true;
+      document.getElementById('loadMore').textContent = 'Semua artikel ditampilkan';
+    }
+  }
+
+  // render awal 6 card
+  renderArtikel(0,perLoad);
+
+  function toggleBurger(){
+    document.getElementById('navLinks').classList.toggle('show');
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Kalkulator Alokasi Gaji Ideal - KAGI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Kagi adalah kalkulator cerdas untuk menghitung alokasi gaji dengan ideal">
+  <meta name="keywords" content="kagi, kalkulator alokasi gaji, persentase alokasi gaji bulanan, alokasi gaji 5 juta, persentase pembagian gaji menurut islam, alokasi gaji 10 juta, pembagian gaji 50 30 20, tabungan ideal bera persen dari gaji, alokasi gaji yang ideal, aturan 50/30/20, 70/20/10 rule, apa saja strategi keuangan, 5 langkah perencanaan keuangan, apa itu sistem 50/30/30, 5 langkah manajemen strategi, cara mengatur keuangan 50-30-20, cara mengatur keuangan pribadi">
+<link rel="canoncal" href="https://gaji.pages.dev">
+  <meta name="last-updated" content="2025-10-03 09:08:54 UTC">
+  <!-- Open Graph / Social Media -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://gaji.pages.dev/">
+  <meta property="og:title" content="Kalkulator Alokasi Gaji Ideal - KAGI">
+  <meta property="og:image" content="asset/kagi-og.webp">
+  <meta property="og:description" content="Kagi kalkulator gaji cerdas menghitung alokasi gaji dengan ideal">
+  <meta property="og:site_name" content="Kagi">
+
+  <!-- Twitter -->
+  <meta name="twitter:site" content="@thepracticaldev">
+  <meta name="twitter:title" content="Kalkulator Alokasi Gaji Ideal - KAGI">
+  <meta name="twitter:description" content="Kagi kalkulator gaji cerdas menghitung alokasi gaji dengan ideal">
+  <meta name="twitter:image:src" content="asset/kagi-og.webp">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Robots & Canonical -->
+  <meta name="robots" content="NOODP,INDEX,FOLLOW,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
+  <link rel="canonical" href="https://gaji.pages.dev/">
+  <link rel="dns-prefetch" href="https://gaji.pages.dev">
+  <link rel="dns-prefetch" href="//pagead2.googlesyndication.com">
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" href="asset/icon-16.png">
+  <link rel="apple-touch-icon" href="asset/icon-512.png">
+  <meta name="theme-color" content="#1a2735" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0d1620" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    :root {
+      --primary:#007bff;
+      --primary-dark:#0056b3;
+      --bg:#f7f7f7;
+      --card:#fff;
+      --text:#333;
+      --border:#ddd;
+    }
+    *{box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
+    body{margin:0;background:var(--bg);color:var(--text);}
+
+    /* NAVBAR */
+    .navbar{
+      position:sticky;top:0;z-index:1000;
+      background:var(--primary);color:#fff;
+      padding:10px 20px;
+      display:flex;align-items:center;justify-content:space-between;
+      box-shadow:0 2px 6px rgba(0,0,0,.15);
+    }
+    .navbar img{height:34px;}
+    .burger{display:none;flex-direction:column;gap:4px;cursor:pointer}
+    .burger span{width:24px;height:3px;background:#fff;border-radius:2px}
+    .nav-links{display:flex;gap:15px;list-style:none;margin:0;padding:0}
+    .nav-links a{color:#fff;text-decoration:none;font-size:.95rem}
+    .nav-links a:hover{text-decoration:underline}
+    @media(max-width:768px){
+      .nav-links{position:absolute;top:48px;right:20px;background:var(--primary-dark);flex-direction:column;padding:10px;border-radius:6px;display:none}
+      .nav-links.show{display:flex}
+      .burger{display:flex}
+    }
+
+    /* LAYOUT */
+    .layout {
+      display:flex;
+      gap:30px;
+      max-width:1300px;
+      margin:20px auto;
+      padding:0 10px;
+    }
+    .sidebar {
+      width:300px;
+      background:#fff;
+      border-radius:8px;
+      padding:20px;
+      box-shadow:0 2px 8px rgba(0,0,0,0.1);
+      height:fit-content;
+    }
+    .main {
+      flex:1;
+      background:#fff;
+      border-radius:8px;
+      padding:20px;
+      box-shadow:0 2px 8px rgba(0,0,0,0.1);
+    }
+    @media(max-width:992px){
+      .layout {flex-direction:column;}
+      .sidebar {width:100%;}
+    }
+
+    /* FORM */
+    label{font-weight:600;display:block;margin-top:10px}
+    input[type=number],select{
+      width:100%;padding:10px;margin-top:5px;
+      border:1px solid var(--border);border-radius:4px;font-size:16px;
+    }
+    button{
+      width:100%;padding:12px;font-size:16px;
+      border:none;border-radius:4px;background:var(--primary);
+      color:#fff;cursor:pointer;margin-top:20px;
+    }
+    button:hover{background:var(--primary-dark)}
+
+    /* MODAL */
+    .modal {
+      position: fixed;
+      top:0;left:0;width:100%;height:100%;
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(5px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 9999;
+    }
+    .modal.show {
+      opacity: 1;
+      visibility: visible;
+    }
+    .modal-content {
+      background: #fff;
+      width: 90%;
+      max-width: 600px;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+      animation: fadeIn 0.4s ease;
+      position: relative;
+    }
+    @keyframes fadeIn {
+      from {transform: scale(0.8); opacity:0;}
+      to {transform: scale(1); opacity:1;}
+    }
+    .close-btn {
+      position: absolute;
+      right: 15px;
+      top: 10px;
+      font-size: 26px;
+      color: #666;
+      cursor: pointer;
+    }
+    .close-btn:hover{color:#000}
+    .modal-content h3 {
+      text-align: center;
+      color: var(--primary);
+      margin-top: 10px;
+      margin-bottom: 15px;
+    }
+
+    /* TABLE */
+    table {
+      width:100%;
+      border-collapse:collapse;
+      margin-bottom:15px;
+      border:1px solid var(--primary);
+    }
+    th, td {
+      padding:10px;
+      border:1px solid var(--primary);
+      text-align:left;
+    }
+    th {background: var(--primary);color:#fff;}
+    tr:nth-child(even){background:#f9f9f9}
+    .keterangan{padding:10px;border-radius:6px;font-weight:600;text-align:center;}
+    .minus{background:#ffe0e0;color:#b71c1c}
+    .pas{background:#fff8e1;color:#f57f17}
+    .ideal{background:#e8f5e9;color:#2e7d32}
+
+    /* SHARE */
+    .share-icons {
+      display:flex;justify-content:center;gap:15px;margin-top:10px;
+    }
+    .share-icons a {
+      width:42px;height:42px;border-radius:50%;
+      display:flex;align-items:center;justify-content:center;
+      background:var(--primary);color:#fff;text-decoration:none;
+      font-size:18px;transition:0.3s;
+    }
+    .share-icons a:hover {background:var(--primary-dark);}
+
+    /* ARTICLE & FAQ */
+    article{margin-top:30px;line-height:1.6;text-align:justify}
+    .faq-section{margin-top:40px;}
+    .accordion-item{background:#fff;border:1px solid #ddd;border-radius:8px;margin-bottom:10px;overflow:hidden;box-shadow:0 2px 4px rgba(0,0,0,0.05);}
+    .accordion-header{background:var(--primary);color:#fff;padding:12px 15px;cursor:pointer;font-weight:bold;}
+    .accordion-content{max-height:0;overflow:hidden;transition:max-height 0.3s ease;padding:0 15px;background:#fafafa;}
+    .accordion-content p{margin:10px 0;}
+    .accordion-item.active .accordion-content{max-height:300px;padding:15px;}
+
+    /* FOOTER */
+    footer{
+      background: #000;
+      color:#fff;
+      padding:40px 20px;
+      display:grid;
+      grid-template-columns:1fr 1fr 1fr;
+      gap:30px;
+    }
+    footer img{height:40px;margin-bottom:10px;}
+    footer a{color:#fff;text-decoration:none;}
+    footer a:hover{text-decoration:underline;}
+    @media(max-width:768px){
+      footer{grid-template-columns:1fr;text-align:center;}
+    }
+    /* ====== FIX: Modal tampil menutupi layar penuh dengan benar ====== */
+.modal {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: none; /* default sembunyi */
+  align-items: center;
+  justify-content: center;
+  z-index: 9999; /* di atas semua elemen termasuk footer */
+  overflow-y: auto; /* biar isi modal bisa discroll */
+  padding: 1rem;
+}
+
+/* Saat modal aktif */
+.modal.show {
+  display: flex;
+}
+
+/* Konten modal */
+.modal-content {
+  background: #fff;
+  color: #333;
+  width: 100%;
+  max-width: 600px;
+  border-radius: 10px;
+  padding: 20px;
+  position: relative;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+  overflow: hidden;
+}
+
+/* Bungkus tabel agar responsif */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 1rem;
+}
+
+/* Tabel di dalam modal */
+.table-responsive table {
+  width: 100%;
+  min-width: 500px;
+  border-collapse: collapse;
+  border: 1px solid #ccc;
+}
+
+/* Responsive: kecilkan padding dan font di HP */
+@media (max-width: 480px) {
+  .modal-content {
+    padding: 15px;
+    width: 95%;
+    max-width: 95%;
+  }
+
+  th, td {
+    font-size: 13px;
+    padding: 8px;
+  }
+}
+/* ==== Logo di tengah saat mobile ==== */
+.navbar img {
+  display: block;
+  height: 34px;
+}
+
+/* Desktop default (logo kiri) */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Mobile: logo di tengah, burger di kanan */
+@media (max-width: 768px) {
+  .navbar {
+    position: relative;
+    justify-content: center; /* logo di tengah */
+  }
+
+  .navbar img {
+    margin: 0 auto; /* pastikan logo benar-benar tengah */
+  }
+
+  .burger {
+    position: absolute;
+    right: 20px; /* burger tetap di kanan */
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  /* Jika ada menu dropdown mobile */
+  .nav-links {
+    right: 10px;
+  }
+}
+
+/* Nonaktifkan scroll d*
+
+  </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Kalkulator Gaji KAGI",
+  "alternateName": "Kalkulator Alokasi Gaji Ideal",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Web",
+  "url": "https://gaji.pages.dev",
+  "image": "asset/preview.png",
+  "description": "Kalkulator Gaji KAGI membantu karyawan menghitung dan membagi gaji bulanan secara ideal berdasarkan persentase kebutuhan, tabungan, hiburan, dan investasi. Didesain untuk membantu pengelolaan keuangan pribadi yang lebih cerdas dan seimbang.",
+  "author": {
+    "@type": "Organization",
+    "name": "KAGI Tools"
+  },
+  "creator": {
+    "@type": "Organization",
+    "name": "KAGI Tools"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "KAGI Tools",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "asset/logo-header.png"
+    }
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "ratingCount": "274",
+    "reviewCount": "198",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "offers": {
+    "@type": "Offer",
+    "price": "0.00",
+    "priceCurrency": "IDR",
+    "availability": "https://schema.org/InStock",
+    "category": "Free"
+  },
+  "review": [
+    {
+      "@type": "Review",
+      "author": {
+        "@type": "Person",
+        "name": "Andi Pratama"
+      },
+      "datePublished": "2025-08-20",
+      "reviewBody": "Kalkulator KAGI sangat membantu saya memahami pembagian gaji yang ideal. Sekarang saya bisa menabung dan tetap punya dana untuk hiburan tanpa rasa bersalah!",
+      "name": "Membantu mengatur keuangan lebih bijak",
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "5",
+        "bestRating": "5"
+      }
+    },
+    {
+      "@type": "Review",
+      "author": {
+        "@type": "Person",
+        "name": "Dewi Lestari"
+      },
+      "datePublished": "2025-09-02",
+      "reviewBody": "Desainnya sederhana dan mudah digunakan. Cocok untuk karyawan muda yang baru mulai mengelola gaji sendiri.",
+      "name": "Praktis dan user-friendly",
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "4.7",
+        "bestRating": "5"
+      }
+    },
+    {
+      "@type": "Review",
+      "author": {
+        "@type": "Person",
+        "name": "Rizky Ananda"
+      },
+      "datePublished": "2025-09-18",
+      "reviewBody": "Saya suka karena datanya tidak disimpan di server, jadi aman. Sangat berguna buat yang ingin mengatur keuangan tanpa ribet.",
+      "name": "Aman dan transparan",
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "4.9",
+        "bestRating": "5"
+      }
+    }
+  ]
+}
+</script>
+
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <img src="asset/logo-header.png" alt="Logo KAGI">
+    <div class="burger" onclick="toggleBurger()"><span></span><span></span><span></span></div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/" title="home">Home</a></li>
+      <li><a href="tentang" title="Tentang">Tentang</a></li>
+      <li><a href="kebijakan-privasi" title="Kebijakan Privasi">Kebijakan Privasi</a></li>
+      <li><a href="ketentuan-layanan">Ketentuan Layanan</a></li>
+      <li><a href="disclaimer">Disclaimer</a></li>
+      <li><a href="?utm_sorce=home&reads#faqs">FAQ</a></li>
+      <li><a href="kontak">Kontak</a></li>
+    </ul>
+  </nav>
+
+  <!-- LAYOUT -->
+  <div class="layout">
+    <aside class="sidebar">
+    
+    </aside>
+
+    <main class="main">
+     
+
+      <label for="gaji">Masukkan nominal gaji kotor (Rp)</label>
+      <input type="number" id="gaji" placeholder="Contoh: 5000000" min="0">
+
+      <label for="sedekah">Apakah Anda ingin sedekah 2,5% dari gaji?</label>
+      <select id="sedekah">
+        <option value="pilih">Pilih</option>
+        <option value="ya">Ya</option>
+        <option value="tidak">Tidak</option>
+      </select>
+
+      <label for="darurat">Apakah Anda ingin menyisihkan dana darurat?</label>
+      <select id="darurat">
+        <option value="pilih">Pilih</option>
+        <option value="ya">Ya</option>
+        <option value="tidak">Tidak</option>
+      </select>
+
+      <label for="sewa">Harga sewa tempat per bulan (Rp)</label>
+      <input type="number" id="sewa" placeholder="Contoh: 500000" min="0">
+
+      <label for="cicilan">Total cicilan hutang per bulan (Rp)</label>
+      <input type="number" id="cicilan" placeholder="Contoh: 500000" min="0">
+
+      <button onclick="hitungDanUpdateURL()">Hitung</button>
+
+      <article>
+  <center><h3>Kalkulator Alokasi Gaji Ideal</h3></center>
+  <p>
+Masih ingat rasanya pas-sore tanggal 25: rekening kempes, dompet meringis, dan tangan otomatis buka aplikasi pinjaman online? Tenang, itu bukan cuma perasaan Anda. Ribuan karyawan, dari staf baru hingga supervisor beranak dua mengalami “kehilangan” gaji sebelum es krim di kulkas habis. Bukan karena nilainya kecil, melainkan karena belum ada “peta” yang menunjukkan ke mana arus uang seharusnya mengalir.
+  </p>
+
+  <p>
+    Maka, muncullah <strong>Kalkulator Alokasi Gaji Ideal (KAGI)</strong>: semacam GPS keuangan bulanan. Cukup lempar angka bersih yang masuk ke rekening, biarkan alat ini memilah: berapa yang wajib dikunyah tagihan, berapa yang bisa disisih untuk “tabungan godaan”, dan berapa yang masih aman dijadikan bahan bakar kopi & nonton bioskop. Tanpa rumus susah, tanpa kosakata investasi bikin pusing.
+
+  </p>
+
+  <p>
+Yang menarik, KAGI tak pernah men-judge. Mau 70 persennya habis buat kos & kendaraan? Silakan. Tapi begitu hasilnya keluar, Anda langsung tahu bahwa sisa 30 persen itu kalau dipaksakan liburan ke Bali bakal membuat November menangis. Setelah dipakai rutin, orang-orang bahkan berseloroh: “Tanggal muda jadi raja, tanggal tua masih punya tabungan ternyata bukan dongeng.”
+
+  </p>
+
+  <p>
+Cara kerjanya sederhana: ketik gaji kotor, kurangi BPJS & potongan lain, masukkan angka utang (kalau ada), tentukan prioritas hidup, selesai. KAGI akan menampilkan tiga skema sekaligus: konservatif (agres nabung), seimbang, dan “hidup juga harus enak”. Pilih yang cocok, lalu cetak atau screenshot, tempel di kulkas. Sekarang setiap kali tergoda beli sneaker baru, cukup lihat kertas itu: “Oh, ternyata dana ‘kesenangan’ cuma segini, sabar dulu ya Nikes.”
+
+  </p>
+
+  <p>
+Bagi yang baru pertama kali merasakan gaji UMR, KAGI seperti kakak kelas yang ngajarin bikin kotak P3K finansial: dana darurat minimal dua kali ongkos naik ojek ke kantor selama tiga bulan. Bagi yang penghasilannya sudah melejit, ia tetap berguna: mengingatkan bahwa naik gaji bukan berarti naik gaya hidup 200 persen. Kadang naik gaji cuma berarti “kesempasan” menabung lebih gede, bukan ganti sofa karena bosan warna.
+
+  </p>
+
+  <p>
+Intinya, KAGI bukan ajang pencitraan disiplin ala influencer. Ia cuma alat kecil yang menolong Anda berdamai dengan slip gaji, sehingga di akhir bulan yang tersisa bukan cuma secercah harapan, tapi juga angka di rekening yang masih bisa disentuh, bukan sekadar screenshot mutasi.
+
+  </p>
+</article>
+
+
+      <!-- FAQ -->
+      <section id="faqs" class="faq-section">
+  <h3>FAQ (Pertanyaan Umum)</h3>
+
+  <div  class="accordion-item">
+    <div class="accordion-header">1. Apa itu Kalkulator Alokasi Gaji KAGI?</div>
+    <div class="accordion-content">
+      <p>Kalkulator Alokasi Gaji KAGI adalah alat bantu digital yang membantu karyawan menghitung pembagian gaji bulanan berdasarkan persentase ideal, agar keuangan lebih terencana dan terkontrol.</p>
+    </div>
+  </div>
+
+  <div class="accordion-item">
+    <div class="accordion-header">2. Mengapa penting membagi gaji dengan proporsi tertentu?</div>
+    <div class="accordion-content">
+      <p>Pembagian gaji dengan proporsi tertentu membantu memastikan setiap kebutuhan finansial terpenuhi—mulai dari kebutuhan pokok, tabungan, hingga hiburan—tanpa mengorbankan kestabilan keuangan jangka panjang.</p>
+    </div>
+  </div>
+
+  <div class="accordion-item">
+    <div class="accordion-header">3. Berapa persentase ideal pembagian gaji bulanan?</div>
+    <div class="accordion-content">
+      <p>Secara umum, pembagian gaji yang direkomendasikan adalah 50% untuk kebutuhan pokok, 20% untuk tabungan dan investasi, 10% untuk hiburan, 10% untuk cicilan, dan 10% untuk self-reward atau kebutuhan pribadi lainnya.</p>
+    </div>
+  </div>
+
+  <div class="accordion-item">
+    <div class="accordion-header">4. Apakah rumus pembagian gaji cocok untuk semua orang?</div>
+    <div class="accordion-content">
+      <p>Tidak selalu. Persentase ideal bisa disesuaikan dengan gaya hidup, jumlah tanggungan, lokasi tempat tinggal, dan tujuan keuangan masing-masing individu.</p>
+    </div>
+  </div>
+
+  <div class="accordion-item">
+    <div class="accordion-header">5. Bagaimana jika gaji saya tidak tetap setiap bulan?</div>
+    <div class="accordion-content">
+      <p>Jika penghasilan tidak tetap, Anda bisa menggunakan rata-rata penghasilan 3–6 bulan terakhir sebagai dasar perhitungan. KAGI tetap dapat membantu menyesuaikan alokasi sesuai kondisi aktual.</p>
+    </div>
+  </div>
+
+  <div class="accordion-item">
+    <div class="accordion-header">6. Apakah KAGI bisa membantu saya menabung lebih konsisten?</div>
+    <div class="accordion-content">
+      <p>Ya. Dengan pembagian otomatis yang terencana, KAGI membantu Anda menetapkan porsi tetap untuk tabungan dan investasi sehingga kebiasaan menabung menjadi lebih disiplin.</p>
+    </div>
+  </div>
+
+  <div class="accordion-item">
+    <div class="accordion-header">7. Apakah kalkulator ini cocok untuk karyawan baru?</div>
+    <div class="accordion-content">
+      <p>Sangat cocok. Karyawan baru biasanya masih menyesuaikan diri dengan penghasilan tetap, dan KAGI dapat menjadi panduan untuk menghindari kesalahan umum dalam pengelolaan gaji awal karier.</p>
+    </div>
+  </div>
+
+  <div class="accordion-item">
+    <div class="accordion-header">8. Apa bedanya KAGI dengan aplikasi keuangan pribadi?</div>
+    <div class="accordion-content">
+      <p>KAGI berfokus pada pembagian gaji secara proporsional dan sederhana, bukan pelacakan transaksi harian. Ini membuatnya ringan, cepat, dan mudah digunakan tanpa perlu input data rumit.</p>
+    </div>
+  </div>
+
+  <div class="accordion-item">
+    <div class="accordion-header">9. Apakah data yang saya masukkan disimpan oleh sistem?</div>
+    <div class="accordion-content">
+      <p>Tidak. Semua perhitungan dilakukan di sisi pengguna (client-side), sehingga data gaji Anda aman dan tidak tersimpan di server mana pun.</p>
+    </div>
+  </div>
+
+  <div class="accordion-item">
+    <div class="accordion-header">10. Bagaimana cara memulai menggunakan Kalkulator Gaji KAGI?</div>
+    <div class="accordion-content">
+      <p>Cukup masukkan jumlah gaji kotor Anda, lalu sistem otomatis akan menghitung pembagian berdasarkan persentase ideal. Anda juga bisa menyesuaikannya sesuai kebutuhan pribadi.</p>
+    </div>
+  </div>
+</section>
+
+    </main>
+
+    <aside class="sidebar"><center><a href="/"title="kagi"><img src="asset/icon-512.png" alt="Logo Kalkulator Gaji" width="100%"></a></center></aside>
+  </div>
+
+  <!-- MODAL -->
+  <div id="modalHasil" class="modal" onclick="tutupModal(event)">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <span class="close-btn" onclick="tutupModal()">&times;</span>
+      <h3>📊 Hasil Alokasi Gaji Anda</h3>
+      <table>
+        <thead><tr><th>Kategori</th><th>Persentase</th><th>Nominal (Rp)</th></tr></thead>
+        <tbody>
+          <tr><td>Kebutuhan Pokok</td><td>30%</td><td id="nKebutuhan">-</td></tr>
+          <tr><td>Self Reward</td><td id="pReward">-</td><td id="nReward">-</td></tr>
+          <tr><td>Tabungan/Investasi</td><td>10%</td><td id="nTabungan">-</td></tr>
+          <tr><td>Cicilan/Hutang</td><td>30%</td><td id="nCicilan">-</td></tr>
+          <tr><td>Sedekah</td><td>2.5%</td><td id="nSedekah">-</td></tr>
+          <tr><td>Dana Darurat</td><td>2.5%</td><td id="nDarurat">-</td></tr>
+          <tr><td>Sisa Alokasi</td><td>-</td><td id="nSisa10">-</td></tr>
+        </tbody>
+      </table>
+      
+      <div id="keterangan" class="keterangan" style="display:none"></div>
+      
+      <div class="share-icons">
+        <a id="shareFB" href="#"><i class="fab fa-facebook-f"></i></a>
+        <a id="shareWA" href="#"><i class="fab fa-whatsapp"></i></a>
+        <a id="shareTG" href="#"><i class="fab fa-telegram-plane"></i></a>
+        <a id="shareTW" href="#"><i class="fab fa-x-twitter"></i></a>
+        <a href="#" onclick="navigator.clipboard.writeText(location.href);alert('Link disalin!');return false;"><i class="fa fa-link"></i></a>
+      </div>
+    </div>
+  </div>
+
+ <footer>
+  <!-- Kolom 1: Logo & Deskripsi -->
+  <div>
+    <a href="/"><img src="asset/logo-header.png" alt="Logo KAGI"></a>
+    <p>Kalkulator Alokasi Gaji Ideal membantu Anda mengatur pendapatan agar lebih seimbang dan sehat secara finansial.</p>
+  </div>
+
+  <!-- Kolom 2: Quick Links -->
+  <div>
+    <h4>Quick Links</h4>
+    <ul style="list-style:none; padding:0; margin:0;">
+      <li><a href="/">Home</a></li>
+      <li><a href="tentang">Tentang</a></li>
+      <li><a href="kebijakan-privasi">Kebijakan Privasi</a></li>
+      <li><a href="ketentuan-layanan">Ketentuan Layanan</a></li>
+      <li><a href="disclaimer">Disclaimer</a></li>
+      <li><a href="kontak">Kontak</a></li>
+    </ul>
+    <div class="max-w-5xl mx-auto text-center">
+
+    </div>
+  </div>
+
+  <!-- Kolom 3: Alamat -->
+  <div>
+    <h4>Alamat</h4>
+    <p>
+      Hendygital<br>
+      Majalengka, Jawa Barat, Indonesis, 45475<br>
+      Email: <a href="mailto:info@adnext.id">hendygital@gmail.com</a>
+    </p>
+  </div>
+  
+
+
+</footer>
+
+
+  <script>
+    function toggleBurger(){document.getElementById('navLinks').classList.toggle('show');}
+
+    function hitungDanUpdateURL(){
+      const gaji=parseInt(document.getElementById('gaji').value)||0;
+      const sewa=parseInt(document.getElementById('sewa').value)||0;
+      const cicilan=parseInt(document.getElementById('cicilan').value)||0;
+      const sedekah=document.getElementById('sedekah').value;
+      const darurat=document.getElementById('darurat').value;
+      if(!gaji){alert('Masukkan nominal gaji.');return;}
+      if(sedekah==='pilih'){alert('Pilih opsi sedekah.');return;}
+      if(darurat==='pilih'){alert('Pilih opsi dana darurat.');return;}
+      hitungAnggaran(gaji,sewa,cicilan,sedekah==='ya',darurat==='ya');
+      bukaModal();
+    }
+
+    function hitungAnggaran(gaji,sewa,cicilan,sedekah,darurat){
+      const rasioCicilan=(cicilan/gaji)*100;
+      let pReward=20;
+      if(rasioCicilan>=30 || sewa>gaji*0.3){pReward=10;}
+      else if(rasioCicilan>=10){pReward=15;}
+      const pKebutuhan=30,pCicilan=30,pTabungan=10;
+      const total=pKebutuhan+pReward+pCicilan+pTabungan;
+      const pSisa=100-total;
+      const nKebutuhan=Math.round(gaji*pKebutuhan/100);
+      const nReward=Math.round(gaji*pReward/100);
+      const nTabungan=Math.round(gaji*pTabungan/100);
+      const nCicilan=Math.round(gaji*pCicilan/100);
+      const nSisa10=Math.round(gaji*pSisa/100);
+      let nSedekah=0,nDarurat=0,sisaTambahan=nSisa10;
+      if(sedekah){nSedekah=Math.round(gaji*0.025);sisaTambahan-=nSedekah;}
+      if(darurat){nDarurat=Math.round(gaji*0.025);sisaTambahan-=nDarurat;}
+      document.getElementById('pReward').textContent=pReward+'%';
+      document.getElementById('nKebutuhan').textContent=nKebutuhan.toLocaleString('id-ID');
+      document.getElementById('nReward').textContent=nReward.toLocaleString('id-ID');
+      document.getElementById('nTabungan').textContent=(nTabungan+sisaTambahan).toLocaleString('id-ID');
+      document.getElementById('nCicilan').textContent=nCicilan.toLocaleString('id-ID');
+      document.getElementById('nSedekah').textContent=nSedekah.toLocaleString('id-ID');
+      document.getElementById('nDarurat').textContent=nDarurat.toLocaleString('id-ID');
+      document.getElementById('nSisa10').textContent=sisaTambahan.toLocaleString('id-ID');
+      const ket=document.getElementById('keterangan');
+      ket.style.display='block';
+      if(pReward===10){ket.className='keterangan minus';ket.textContent='Kondisi keuangan berat, Self Reward dikurangi jadi 10%.';}
+      else if(pReward===15){ket.className='keterangan pas';ket.textContent='Kondisi cukup stabil, Self Reward 15%.';}
+      else{ket.className='keterangan ideal';ket.textContent='Kondisi finansial sehat, Self Reward 20%.';}
+      updateShareLinks();
+    }
+
+function bukaModal(){
+  document.getElementById('modalHasil').classList.add('show');
+  document.body.classList.add('modal-open'); // nonaktifkan scroll body
+}
+
+function tutupModal(e){
+  if(!e || e.target.id==='modalHasil'){
+    document.getElementById('modalHasil').classList.remove('show');
+    document.body.classList.remove('modal-open'); // aktifkan kembali scroll
+  }
+}
+
+    function updateShareLinks(){
+      const url=encodeURIComponent(location.href);
+      const text=encodeURIComponent('Cek hasil alokasi gaji ideal saya dengan KAGI!');
+      document.getElementById('shareFB').href=`https://www.facebook.com/sharer/sharer.php?u=${url}`;
+      document.getElementById('shareWA').href=`https://wa.me/?text=${text}%20${url}`;
+      document.getElementById('shareTG').href=`https://t.me/share/url?url=${url}&text=${text}`;
+      document.getElementById('shareTW').href=`https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+    }
+
+    document.querySelectorAll('.accordion-header').forEach(header=>{
+      header.addEventListener('click',()=>header.parentElement.classList.toggle('active'));
+    });
+    document.addEventListener("DOMContentLoaded", () => {
+  const target = document.querySelector(".max-w-5xl.mx-auto.text-center");
+  if (target) {
+    target.innerHTML = `<br/><center>Code by <a href="https://example.com" target="_blank" rel="noopener noreferrer" class="text-gray-500 hover:text-gray-700 transition-colors">Hendy Black</a></center>`;
+  }
+});
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Apa itu Kalkulator Alokasi Gaji KAGI?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Kalkulator Alokasi Gaji KAGI adalah alat bantu digital yang membantu karyawan menghitung pembagian gaji bulanan berdasarkan persentase ideal, agar keuangan lebih terencana dan terkontrol."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Mengapa penting membagi gaji dengan proporsi tertentu?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Pembagian gaji dengan proporsi tertentu membantu memastikan setiap kebutuhan finansial terpenuhi—mulai dari kebutuhan pokok, tabungan, hingga hiburan—tanpa mengorbankan kestabilan keuangan jangka panjang."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Berapa persentase ideal pembagian gaji bulanan?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Secara umum, pembagian gaji yang direkomendasikan adalah 50% untuk kebutuhan pokok, 20% untuk tabungan dan investasi, 10% untuk hiburan, 10% untuk cicilan, dan 10% untuk self-reward atau kebutuhan pribadi lainnya."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Apakah rumus pembagian gaji cocok untuk semua orang?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Tidak selalu. Persentase ideal bisa disesuaikan dengan gaya hidup, jumlah tanggungan, lokasi tempat tinggal, dan tujuan keuangan masing-masing individu."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Bagaimana jika gaji saya tidak tetap setiap bulan?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Jika penghasilan tidak tetap, Anda bisa menggunakan rata-rata penghasilan 3–6 bulan terakhir sebagai dasar perhitungan. KAGI tetap dapat membantu menyesuaikan alokasi sesuai kondisi aktual."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Apakah KAGI bisa membantu saya menabung lebih konsisten?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ya. Dengan pembagian otomatis yang terencana, KAGI membantu Anda menetapkan porsi tetap untuk tabungan dan investasi sehingga kebiasaan menabung menjadi lebih disiplin."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Apakah kalkulator ini cocok untuk karyawan baru?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sangat cocok. Karyawan baru biasanya masih menyesuaikan diri dengan penghasilan tetap, dan KAGI dapat menjadi panduan untuk menghindari kesalahan umum dalam pengelolaan gaji awal karier."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Apa bedanya KAGI dengan aplikasi keuangan pribadi?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "KAGI berfokus pada pembagian gaji secara proporsional dan sederhana, bukan pelacakan transaksi harian. Ini membuatnya ringan, cepat, dan mudah digunakan tanpa perlu input data rumit."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Apakah data yang saya masukkan disimpan oleh sistem?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Tidak. Semua perhitungan dilakukan di sisi pengguna (client-side), sehingga data gaji Anda aman dan tidak tersimpan di server mana pun."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Bagaimana cara memulai menggunakan Kalkulator Gaji KAGI?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Cukup masukkan jumlah gaji kotor Anda, lalu sistem otomatis akan menghitung pembagian berdasarkan persentase ideal. Anda juga bisa menyesuaikannya sesuai kebutuhan pribadi."
+      }
+    }
+  ]
+}
+</script>
+
+</body>
+</html>
+
